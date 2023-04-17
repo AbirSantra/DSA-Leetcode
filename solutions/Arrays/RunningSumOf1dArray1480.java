@@ -1,21 +1,16 @@
-package Arrays;
-//Question: https://leetcode.com/problems/running-sum-of-1d-array/
-
-import java.util.Arrays;
-
-public class RunningSumOf1dArray1480 {
-    public static void main(String[] args) {
-        int[] nums = new int[]{1,1,1,1,1};
-        System.out.println(Arrays.toString(runningSum(nums)));
-
-    }
-    public static int[] runningSum(int[] nums){
-        int[] ans = new int[nums.length];
-        int sum =0;
+// Question Link: https://leetcode.com/problems/running-sum-of-1d-array/
+/* 
+Approach: We maintain the running sum in a variable. 
+For each element, we add to the running sum, then replace the element by the running sum. 
+This way we dont need to create another array for storing the answer.
+*/
+class Solution {
+    public int[] runningSum(int[] nums) {
+        int rSum = 0;
         for(int i=0;i<nums.length;i++){
-            sum = sum + nums[i];
-            ans[i] = sum;
+            rSum = rSum + nums[i];
+            nums[i] = rSum;
         }
-        return ans;
+        return nums;
     }
 }
