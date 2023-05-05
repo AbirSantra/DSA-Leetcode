@@ -1,17 +1,21 @@
-package Arrays;
-//Question: https://leetcode.com/problems/find-the-highest-altitude/
-public class FindTheHigestAltitude1732 {
-    public static void main(String[] args) {
-        int[] gain = new int[]{44,32,-9,52,23,-50,50,33,-84,47,-14,84,36,-62,37,81,-36,-85,-39,67,-63,64,-47,95,91,-40,65,67,92,-28,97,100,81}; //ans: 781
-        System.out.println(largestAltitude(gain));
-    }
-    public static int largestAltitude(int[] gain){
-        int ans = 0; //since we always start out at atleast altitude 0
-        int alt = 0;
-        for (int j : gain) {
-            alt = alt + j;
-            ans = Integer.max(ans, alt);
+// Question Link: https://leetcode.com/problems/find-the-highest-altitude/
+/* 
+Approach: 
+We essentially need to calculate the running sum of the altitudes,
+and in each altitude, we check if it is the maximum altitude reached yet.
+If yes, we update 'highest'. 
+At the end, return 'highest'
+*/
+class Solution {
+    public int largestAltitude(int[] gain) {
+        int highest = 0;
+        int rSum = 0;
+
+        for(int i=0;i<gain.length;i++){
+            rSum = rSum + gain[i];
+            highest = Math.max(rSum,highest);
         }
-        return ans;
+
+        return highest;
     }
 }
