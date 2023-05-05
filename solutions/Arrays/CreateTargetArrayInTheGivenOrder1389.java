@@ -1,25 +1,24 @@
-package Arrays;
-
-import java.util.Arrays;
-
-//Question: https://leetcode.com/problems/create-target-array-in-the-given-order/
-public class CreateTargetArrayInTheGivenOrder1389 {
-    public static void main(String[] args) {
-        int[] nums = new int[]{1,2,3,4,0};
-        int[] index = new int[]{0,1,2,3,0};
-        System.out.println(Arrays.toString(createTargetArray(nums,index)));
-    }
-    public static int[] createTargetArray(int[] nums,int[] index){
+// Question Link: https://leetcode.com/problems/create-target-array-in-the-given-order/description/
+/* 
+Approach:
+We simply take advantage of the add method of Arraylist which can add an element in a specified position 
+by shifting all the elements instead of replacing the element in that position.
+After adding all the elements at the specified positions,
+we store the final result in an array and return.
+*/
+class Solution {
+    public int[] createTargetArray(int[] nums, int[] index) {
         int[] ans = new int[nums.length];
-        for (int i=0;i< nums.length;i++){
-            insertNum(ans,nums[i],index[i]);
+        List<Integer> arr = new ArrayList<Integer>();
+
+        for(int i=0;i<nums.length;i++){
+            arr.add(index[i],nums[i]);
         }
+
+        for(int i=0;i<ans.length;i++){
+            ans[i] = arr.get(i);
+        }
+
         return ans;
-    }
-    public static void insertNum(int[] ans,int target,int index){
-        for (int i=ans.length-2;i>=index;i--){
-            ans[i+1] =  ans[i];
-        }
-        ans[index]=target;
     }
 }
