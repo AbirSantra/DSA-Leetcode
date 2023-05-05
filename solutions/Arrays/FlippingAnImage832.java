@@ -1,49 +1,32 @@
-package Arrays;
+// Question Link : https://leetcode.com/problems/flipping-an-image/description/
+/* 
+Approach:
+Let us consider an array [1,1,0,1].
+We can see that the array when flipped will be [1,0,1,1],
+and then inverted will be [0,1,0,0].
+We can find a pattern here: If the elements on the opposite ends are the same, 
+then the result has them inverted. If they are different, the result is the same as original array.
+So we maintain two pointers, one at the begining element and another at the last element
+and move inwards. Each time we check if the elements at the pointers are equal.
+If they are then we invert them. Else we continue.
+At the end, we return the original arrays.
+*/
+class Solution {
+    public int[][] flipAndInvertImage(int[][] image) {
+        for(int i=0;i<image.length;i++){
+            int low = 0;
+            int high = image[i].length - 1;
 
-import java.util.Arrays;
-
-//Question: https://leetcode.com/problems/flipping-an-image/
-public class FlippingAnImage832 {
-    public static void main(String[] args) {
-        int[][] image = new int[][]{
-                {1,1,0,0},
-                {1,0,0,1},
-                {0,1,1,1},
-                {1,0,1,0}
-        };
-        int[][] ans = flipAndInvertImage(image);
-        for(int i=0;i<ans.length;i++){
-            for(int j=0;j<ans.length;j++){
-                System.out.print(ans[i][j]+" ");
+            while(low<=high){
+                if(image[i][low]==image[i][high]){
+                    image[i][low] = 1 - image[i][low];
+                    image[i][high] = image[i][low];
+                }
+                low++;
+                high--;
             }
-            System.out.println();
         }
-    }
-    public static int[][] flipAndInvertImage(int[][] image){
-        int[][] ans = new int[image.length][image.length];
-        for(int i=0;i< image.length;i++){
-            image[i] = flipArr(image[i]);
-            image[i] = invertArr(image[i]);
-        }
+
         return image;
-    }
-    public static int[] flipArr(int[] arr){
-        int start = 0;
-        int end = arr.length-1;
-        while(start<end){
-            int temp = arr[start];
-            arr[start] = arr[end];
-            arr[end] = temp;
-            start++;
-            end--;
-        }
-        return arr;
-    }
-    public static int[] invertArr(int[] arr){
-        for(int i=0;i< arr.length;i++){
-            if(arr[i]==1) arr[i] =0 ;
-            else arr[i] = 1;
-        }
-        return arr;
     }
 }
