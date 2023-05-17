@@ -1,37 +1,52 @@
-package Arrays;
-//Question: https://leetcode.com/problems/cells-with-odd-values-in-a-matrix/
-public class CellsWithOddValuesInAMatrix1252 {
-    public static void main(String[] args) {
-        int[][] indices = new int[][]{
-                {1,1},
-                {0,0}
-        };
-        System.out.println(oddCells(2,2,indices));
-    }
-    public static int oddCells(int m, int n, int[][] indices){
-        int ans = 0;
-        int[][] mat = new int[m][n];
-        for(int i=0;i< indices.length;i++){
-            int row = indices[i][0];
-            int col = indices[i][1];
-            updateRow(mat,row,n);
-            updateCol(mat,col,m);
+// Question Link: https://leetcode.com/problems/cells-with-odd-values-in-a-matrix/description/
+
+/* 
+Approach:
+We are simply concerned with the number of odd values on the array.
+We take two boolean arrays rows and cols to determine whether, after increments,
+the rows and cols are odd or not. True = Odd and false = Even.
+Then we count how many rows are odd and how many are even.
+We do a similar thing with the cols.
+Now for the answer, if there are two rows and three columns,
+the only combinations with give odd numbers are the positions where row is odd and col is even,
+or, row is even and col is odd. That is either row is incremented or col is incremented.
+So answer is given by: oddRow*evenCol + evenRow*oddCol
+*/
+
+class Solution {
+    public int oddCells(int m, int n, int[][] indices) {
+        boolean[] rows = new boolean[m];
+        boolean[] cols = new boolean[n];
+
+        // Count increments
+        for(int i=0;i<indices.length;i++){
+            int a = indices[i][0];
+            int b = indices[i][1];
+            rows[a] = !rows[a];
+            cols[b] = !cols[b];
         }
-        for(int i=0;i< m;i++){
-            for (int j=0;j<n;j++){
-                if(mat[i][j]%2!=0) ans++;
+
+        int oddRow = 0;
+        int evenRow = 0;
+        int oddCol = 0;
+        int evenCol = 0;
+
+        for(int i=0;i<m;i++){
+            if(rows[i]==true){
+                oddRow++;
+            } else {
+                evenRow++;
             }
         }
-        return ans;
-    }
-    public static void updateRow(int[][] arr,int row,int n){
+
         for(int i=0;i<n;i++){
-            arr[row][i]++;
+            if(cols[i]==true){
+                oddCol++;
+            } else {
+                evenCol++;
+            }
         }
-    }
-    public static void updateCol(int[][] arr,int col,int m){
-        for(int i=0;i<m;i++){
-            arr[i][col]++;
-        }
+
+        return (oddRow*evenCol)+(evenRow*oddCol);
     }
 }
