@@ -1,22 +1,29 @@
+// Question Link: https://leetcode.com/problems/two-sum/
+
+/* 
+Approach:
+We will keep a track of the elements encountered and their indexes in a map.
+For each element, we will check if the difference from the target exists in the map.
+If it does, we return the indexes. Else, we add it to the map.
+*/
+
 class Solution {
     public int[] twoSum(int[] nums, int target) {
+        Map<Integer, Integer> map = new HashMap<Integer,Integer>();
         int[] ans = new int[2];
-        Map<Integer,Integer> map = new HashMap<>();
-        
+
         for(int i=0;i<nums.length;i++){
-            // get the expected result which will add upto target 
             int diff = target - nums[i];
-            
-            //check if result is present in the map
-            if(!map.containsKey(diff)){
-                // if not add the element to the map as the key and its position as the value
-                map.put(nums[i],i);
-            } else {
-                // if present then we have found the answer, return the position of the key and the current element
-                ans[0] = map.get(diff); //
+
+            if(map.containsKey(diff)){
+                ans[0] = map.get(diff);
                 ans[1] = i;
+                return ans;
+            } else {
+                map.put(nums[i],i);
             }
         }
+
         return ans;
     }
 }
