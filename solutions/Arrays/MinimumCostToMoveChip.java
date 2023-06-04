@@ -1,9 +1,22 @@
-// Here, even-to-even movement and odd-to-odd movement is cost 0. And even-to-odd or odd-to-even movements is cost 1. So we can move all chips at even positions to position 0 with no cost as well as we can move all chips at odd positions to position 1 with no cost. So finally we just need to move either chips from position 0 to position 1 or position 1 to position 0 depending on which cost less. So we will count the number of chips at even and odd locations respectively and then return the one which is minimum to get the answer.
+// QuestionLink: https://leetcode.com/problems/minimum-cost-to-move-chips-to-the-same-position/
+/* 
+Approach:
+We can see that, moving 2 steps have no cost.
+So moving from even to even position, e.g 2 to 4 has zero cost.
+Moving from odd to odd position, e.g 1 to 3 will have zero cost.
+So basically, we can move all coins from the even positions to position 0 with no cost.
+We can move all coins from the odd positions to position 1 with no cost.
+Now all the coins are in the 0th position or the 1st position.
+So moving the coins from the position which can lesser number of coins,
+will be cheaper.
+So we count the number of coins in even and odd positions,
+and return the lesser one.
+*/
 
 class Solution {
     public int minCostToMoveChips(int[] position) {
-        int odd = 0;
         int even = 0;
+        int odd = 0;
         for(int i=0;i<position.length;i++){
             if(position[i]%2==0){
                 even++;
